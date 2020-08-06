@@ -7,13 +7,22 @@
           Characters <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <li>
-            <router-link class="dropdown-option" to="/">
-              <span>Grognak</span>
+          <li
+            v-for="character in this.$root.$data.characters"
+            :key="character.name"
+          >
+            <router-link
+              class="dropdown-option"
+              :to="{
+                name: 'Character-Sheet',
+                params: { character: character.name }
+              }"
+            >
+              <span>{{ character.name }}</span>
             </router-link>
           </li>
           <li>
-            <router-link class="dropdown-option" to="/">
+            <router-link class="dropdown-option" to="/Character-Creation-1">
               <span>New Character </span>
               <img src="@/assets/Plus-square.svg" />
             </router-link>
@@ -26,17 +35,17 @@
         </button>
         <ul class="dropdown-menu">
           <li>
-            <router-link class="dropdown-option" to="/">
+            <router-link class="dropdown-option" to="/Spells5e">
               <span>D&D 5e</span>
             </router-link>
           </li>
         </ul>
       </div>
     </div>
+    <router-view />
     <div class="footer">
       <a href="https://github.com/Xarkahn/CreativeProject3">Repository</a>
     </div>
-    <router-view />
   </div>
 </template>
 
@@ -58,6 +67,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: black;
+  position: relative;
+  min-height: calc(100vh - 24px);
 }
 
 #nav {
@@ -88,21 +99,25 @@ a:hover {
   color: white;
   text-decoration: none;
 }
-
+.dropdown-menu li {
+  width: 100%;
+}
 .dropdown-option {
   background-color: transparent;
   color: black;
   padding-left: 1em;
+  width: 100%;
+  display: inline-block;
 }
 
 .dropdown-option:hover {
-  background-color: transparent;
+  background-color: lightgray;
   color: black;
 }
 
 .footer {
   position: absolute;
-  bottom: 0;
+  bottom: -24px;
   background-color: var(--header-color);
   width: 100%;
   text-align: center;
